@@ -1,4 +1,6 @@
-FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
+ARG BASE_IMAGE
+
+FROM ${BASE_IMAGE}
 
 COPY ./src/ /root/src
 
