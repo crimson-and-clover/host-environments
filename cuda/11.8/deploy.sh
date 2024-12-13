@@ -7,4 +7,5 @@ docker run -d --name huyu-cuda11.8 \
     -v /home/hdd/huyu/shared:/root/hdd \
     -v /home/huyu/shared/:/root/ssd \
     --privileged \
+    --shm-size=2g \
     huyu/cuda:11.8-ubuntu22.04
