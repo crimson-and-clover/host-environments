@@ -2,6 +2,10 @@ ARG BASE_IMAGE
 
 FROM ${BASE_IMAGE}
 
+ENV TZ="Asia/Shanghai"
+
+ENV DEBIAN_FRONTEND="noninteractive"
+
 COPY ./src/ /root/src
 
 RUN apt-get update && apt-get upgrade -y
