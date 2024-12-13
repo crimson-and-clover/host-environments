@@ -8,12 +8,12 @@ RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install -y openssh-server build-essential sudo git cmake curl wget net-tools vim zip ffmpeg
 
-RUN gcc /root/src/pause.c -o /usr/bin/pause
+RUN gcc /root/src/pause.c -o /usr/bin/pause && nvcc /root/src/cuda_occupier.cu -o /usr/bin/cuda_occupier
 
 RUN apt-get install -y libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 
-RUN wget -O /root/Anaconda3-2024.06-1-Linux-x86_64.sh https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh && \
-    bash /root/Anaconda3-2024.06-1-Linux-x86_64.sh -b -p /root/anaconda3 && \
+RUN wget -O /root/Anaconda3-Linux-x86_64.sh https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh && \
+    bash /root/Anaconda3-Linux-x86_64.sh -b -p /root/anaconda3 && \
     /root/anaconda3/bin/conda init
 
 RUN mkdir -p /root/.ssh && \
