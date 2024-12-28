@@ -49,7 +49,7 @@ function run_as_root() {
     
     # create developer user
     groupadd -g 1000 "$USER_NAME" || exit 1
-    useradd -u 1000 -g 1000 -m -N "$USER_NAME" || exit 1
+    useradd -u 1000 -g 1000 -m -N "$USER_NAME" -s /bin/bash || exit 1
     usermod -aG sudo "$USER_NAME" || exit 1
     echo "$USER_NAME:000000" | chpasswd
     
