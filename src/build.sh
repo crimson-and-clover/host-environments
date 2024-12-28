@@ -68,7 +68,7 @@ function run_as_root() {
     echo "source ~/.cuda_env" >> ~/.bashrc
     
     # run as user
-    su "$USER_NAME" bash -v "$0" || exit 1
+    su "$USER_NAME" -c "bash -v $0" || exit 1
 }
 
 function run_as_user() {
