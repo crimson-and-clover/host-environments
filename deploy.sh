@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+# modify here
 CONTAINER_NAME="huyu-cuda11.8"
 HOSTNAME="cuda_11_8"
 IMAGE_NAME="huyu/cuda:11.8-ubuntu22.04"
 
 function deploy() {
-    docker run -d --name="$IMAGE_NAME" \
+    docker run -d --name="$CONTAINER_NAME" \
     --restart=unless-stopped \
     --gpus=all \
     --privileged \
