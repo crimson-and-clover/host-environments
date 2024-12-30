@@ -10,16 +10,14 @@ HDD_ROOT=/home/hdd/huyu/container/
 SSD_ROOT=/home/huyu/container/
 SSH_PORT=22000
 
+USER_ID=1017
+GROUP_ID=1017
+
 function deploy() {
     # create data directory
     mkdir -p "$SSD_ROOT/data"
     mkdir -p "$HDD_ROOT/data"
-    mkdir -p "$HDD_ROOT/anaconda3/envs"
-    mkdir -p "$HDD_ROOT/anaconda3/pkgs"
-    mkdir -p "$HDD_ROOT/vscode-server"
-    mkdir -p "$HDD_ROOT/cache/huggingface"
-    mkdir -p "$HDD_ROOT/cache/pip"
-    
+    mkdir -p "$HDD_ROOT/home"
     
     USER_HOME="/home/$USER_NAME"
     
@@ -30,14 +28,12 @@ function deploy() {
     --shm-size=2g \
     --hostname="$HOSTNAME" \
     -p "0.0.0.0:$SSH_PORT:22/tcp" \
+    -v "$HDD_ROOT/home:$USER_HOME" \
     -v "$SSD_ROOT/data:$USER_HOME/ssd" \
     -v "$HDD_ROOT/data:$USER_HOME/hdd" \
-    -v "$HDD_ROOT/anaconda3/envs:$USER_HOME/anaconda3/envs" \
-    -v "$HDD_ROOT/anaconda3/pkgs:$USER_HOME/anaconda3/pkgs" \
-    -v "$HDD_ROOT/vscode-server:$USER_HOME/.vscode-server" \
-    -v "$HDD_ROOT/cache/huggingface:$USER_HOME/.cache/huggingface" \
-    -v "$HDD_ROOT/cache/pip:$USER_HOME/.cache/pip" \
     "$IMAGE_NAME"
+    
+    docker exec -it "$CONTAINER_NAME" bash -v /src/init_user.sh "$USER_ID" "$GROUP_ID"
 }
 
 deploy
