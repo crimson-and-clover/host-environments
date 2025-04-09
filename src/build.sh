@@ -7,12 +7,15 @@ APT_PKGS=(
     sudo
     git
     cmake
+    ninja-build
     curl
     wget
     net-tools
     vim
     zip
     ffmpeg
+    iputils-ping
+    iproute2
     # compile dependency
     libgl1-mesa-glx
     libegl1-mesa
@@ -24,6 +27,23 @@ APT_PKGS=(
     libasound2
     libxi6
     libxtst6
+    libboost-program-options-dev
+    libboost-filesystem-dev
+    libboost-graph-dev
+    libboost-system-dev
+    libeigen3-dev
+    libflann-dev
+    libfreeimage-dev
+    libmetis-dev
+    libgoogle-glog-dev
+    libgtest-dev
+    libgmock-dev
+    libsqlite3-dev
+    libglew-dev
+    qtbase5-dev
+    libqt5opengl5-dev
+    libcgal-dev
+    libceres-dev
 )
 
 USER_NAME="developer"
