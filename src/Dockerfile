@@ -13,5 +13,3 @@ RUN bash -v /src/build.sh
 CMD [ "bash", "/src/init.sh" ]
 
 EXPOSE 22/tcp
-
-VOLUME [ "/home/developer", "/home/developer/hdd", "/home/developer/ssd" ]

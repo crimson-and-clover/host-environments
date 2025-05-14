@@ -16,6 +16,7 @@ APT_PKGS=(
     ffmpeg
     iputils-ping
     iproute2
+    fuse-overlayfs
     # compile dependency
     libgl1-mesa-glx
     libegl1-mesa

@@ -6,8 +6,11 @@ USER_NAME="developer"
 CONTAINER_NAME="huyu-cuda11.8"
 HOSTNAME="3090x8_cu11"
 IMAGE_NAME="huyu/cuda:11.8-ubuntu22.04"
-HDD_ROOT=/home/hdd/huyu/container/
-SSD_ROOT=/home/huyu/container/
+
+SSD1_ROOT=/home/huyu/ssd1/container/
+HDD1_ROOT=/home/huyu/hdd1/container/
+HDD2_ROOT=/home/huyu/hdd2/container/
+
 SSH_PORT=22000
 
 USER_ID=1017
@@ -15,9 +18,12 @@ GROUP_ID=1017
 
 function deploy() {
     # create data directory
-    mkdir -p "$SSD_ROOT/data"
-    mkdir -p "$HDD_ROOT/data"
-    mkdir -p "$HDD_ROOT/home"
+    mkdir -p "$SSD1_ROOT/data"
+
+    mkdir -p "$HDD1_ROOT/data"
+    mkdir -p "$HDD1_ROOT/home"
+    mkdir -p "$HDD2_ROOT/data"
+    mkdir -p "$HDD2_ROOT/home"
     
     USER_HOME="/home/$USER_NAME"
     
@@ -28,9 +34,10 @@ function deploy() {
     --shm-size=2g \
     --hostname="$HOSTNAME" \
     -p "0.0.0.0:$SSH_PORT:22/tcp" \
-    -v "$HDD_ROOT/home:$USER_HOME" \
-    -v "$SSD_ROOT/data:$USER_HOME/ssd" \
-    -v "$HDD_ROOT/data:$USER_HOME/hdd" \
+    -v "$HDD1_ROOT/home:$USER_HOME" \
+    -v "$SSD1_ROOT/data:$USER_HOME/ssd1" \
+    -v "$HDD1_ROOT/data:$USER_HOME/hdd1" \
+    -v "$HDD2_ROOT/data:$USER_HOME/hdd2" \
     "$IMAGE_NAME"
     
     docker exec -it "$CONTAINER_NAME" bash -v /src/init_user.sh "$USER_ID" "$GROUP_ID"
