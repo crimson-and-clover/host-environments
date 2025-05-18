@@ -15,7 +15,7 @@ function create_user() {
     groupadd -g "$GROUP_ID" "$USER_NAME" || exit 1
     useradd -u "$USER_ID" -g "$GROUP_ID" -m -N "$USER_NAME" -s /bin/bash || exit 1
     usermod -aG sudo "$USER_NAME" || exit 1
-    cp -a /etc/skel/.* "/home/$USER_NAME" || exit 1
+    cp -a /etc/skel/. "/home/$USER_NAME" || exit 1
     echo "$USER_NAME:000000" | chpasswd
 }
 

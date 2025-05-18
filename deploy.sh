@@ -4,7 +4,7 @@ USER_NAME="developer"
 
 # modify here
 CONTAINER_NAME="huyu-cuda11.8"
-HOSTNAME="3090x8_cu11"
+HOSTNAME="a6000x8_cu11"
 IMAGE_NAME="huyu/cuda:11.8-ubuntu22.04"
 
 SSD1_ROOT=/home/huyu/ssd1/container/
