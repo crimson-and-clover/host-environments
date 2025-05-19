@@ -5,6 +5,16 @@ USER_NAME="developer"
 
 ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh"
 
+function change_dir_permission() {
+    chmod 700 "/home/$USER_NAME/" || exit 1
+    chmod 700 "/home/$USER_NAME/hdd"* || exit 1
+    chmod 700 "/home/$USER_NAME/ssd"* || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/" || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/"* || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".[^.]* || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".??* || exit 1
+}
+
 function create_user() {
     if id "$USER_NAME" &>/dev/null; then
         echo "User $USER_NAME already exists"
@@ -19,22 +29,9 @@ function create_user() {
         echo "Copy skel to user home"
         cp -a /etc/skel/. "/home/$USER_NAME" || exit 1
     fi
-    chown "$USER_NAME:$USER_NAME" "/home/$USER_NAME/".[^.]* || exit 1
-    chown "$USER_NAME:$USER_NAME" "/home/$USER_NAME/".??* || exit 1
-    chown "$USER_NAME:$USER_NAME" "/home/$USER_NAME/"* || exit 1
-    chown "$USER_NAME:$USER_NAME" "/home/$USER_NAME/" || exit 1
     echo "root:000000" | chpasswd
     echo "$USER_NAME:000000" | chpasswd
-}
-
-function change_dir_permission() {
-    chmod 700 "/home/$USER_NAME/" || exit 1
-    chmod 700 "/home/$USER_NAME/hdd"* || exit 1
-    chmod 700 "/home/$USER_NAME/ssd"* || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/" || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/"* || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".[^.]* || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".??* || exit 1
+    change_dir_permission
 }
 
 function run_as_root() {
@@ -55,13 +52,15 @@ function run_as_root() {
     # init user
     create_user
     
+    change_dir_permission
+    
     # run as user
     su "$USER_NAME" -c "bash -v $0" || exit 1
 }
 
 function run_as_user() {
     cd $HOME
-
+    
     # install anaconda
     if [[ ! -d "./anaconda3" ]]; then
         echo "Installing Anaconda"
@@ -79,7 +78,7 @@ function run_as_user() {
         chmod 644 ./.ssh/authorized_keys && \
         chown "$USER_NAME:$USER_NAME" ./.ssh/authorized_keys || exit 1
     fi
-
+    
     # save cuda environment to file
     if [[ ! -f "./.cuda_env" ]]; then
         echo "Saving cuda environment to file"
