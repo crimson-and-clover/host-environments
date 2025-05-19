@@ -15,14 +15,24 @@ function create_user() {
     groupadd -g "$GROUP_ID" "$USER_NAME" || exit 1
     useradd -u "$USER_ID" -g "$GROUP_ID" -m -N "$USER_NAME" -s /bin/bash || exit 1
     usermod -aG sudo "$USER_NAME" || exit 1
-    cp -a /etc/skel/. "/home/$USER_NAME" || exit 1
+    if [[ ! -e .bashrc ]]; then
+        cp -a /etc/skel/. "/home/$USER_NAME" || exit 1
+    fi
+    chown "$USER_NAME:$USER_NAME" "/home/$USER_NAME/".[^.]* || exit 1
+    chown "$USER_NAME:$USER_NAME" "/home/$USER_NAME/".??* || exit 1
+    chown "$USER_NAME:$USER_NAME" "/home/$USER_NAME/"* || exit 1
+    echo "root:000000" | chpasswd
     echo "$USER_NAME:000000" | chpasswd
 }
 
 function change_dir_permission() {
-    chmod 700 "/home/$USER_NAME" || exit 1
+    chmod 700 "/home/$USER_NAME/" || exit 1
     chmod 700 "/home/$USER_NAME/hdd"* || exit 1
     chmod 700 "/home/$USER_NAME/ssd"* || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/" || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/"* || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".[^.]* || exit 1
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".??* || exit 1
 }
 
 function run_as_root() {
@@ -38,10 +48,10 @@ function run_as_root() {
         GROUP_ID="$USER_ID"
     fi
     
+    change_dir_permission
+    
     # init user
     create_user
-    
-    change_dir_permission
     
     # run as user
     su "$USER_NAME" -c "bash -v $0" || exit 1
@@ -74,7 +84,6 @@ function run_as_user() {
         bash /src/create_cuda_env.sh > ./.cuda_env
         echo "source ~/.cuda_env" >> ~/.bashrc
     fi
-
 }
 
 if [[ "$USER" == "$USER_NAME" ]]; then
