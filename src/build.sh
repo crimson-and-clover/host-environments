@@ -17,6 +17,7 @@ APT_PKGS=(
     iputils-ping
     iproute2
     fuse-overlayfs
+    sshfs
     # compile dependency
     libgl1-mesa-glx
     libegl1-mesa
