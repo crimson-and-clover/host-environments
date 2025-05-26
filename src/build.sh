@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+export TZ=Asia/Shanghai
+export DEBIAN_FRONTEND=noninteractive
+
 APT_PKGS=(
     # tools
     openssh-server
@@ -18,6 +21,7 @@ APT_PKGS=(
     iproute2
     fuse-overlayfs
     sshfs
+    tzdata
     # compile dependency
     libgl1-mesa-glx
     libegl1-mesa
@@ -79,3 +83,7 @@ sed -i '/#PermitRootLogin/s/.*/PermitRootLogin yes/' /etc/ssh/sshd_config || exi
 # save cuda environment to file
 bash /src/create_cuda_env.sh > ./.cuda_env
 echo "source ~/.cuda_env" >> ~/.bashrc
+
+# set timezone
+ln -snf "/usr/share/zoneinfo/$TZ" "/etc/localtime"
+echo "$TZ" > "/etc/timezone"
