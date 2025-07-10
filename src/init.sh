@@ -2,6 +2,14 @@
 
 echo "Booting..."
 
+export DISPLAY=:99
+
+rm /tmp/.X99-lock
+
+Xvfb "$DISPLAY" -screen 0 1920x1080x30 &
+
+echo 'DISPLAY=":99"' >> /etc/environment
+
 service ssh start
 
 exec pause

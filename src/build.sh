@@ -50,6 +50,9 @@ APT_PKGS=(
     libqt5opengl5-dev
     libcgal-dev
     libceres-dev
+    # virtual display
+    xvfb
+    mesa-utils
 )
 
 USER_NAME="developer"

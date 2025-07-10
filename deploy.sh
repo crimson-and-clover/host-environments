@@ -4,7 +4,7 @@ USER_NAME="developer"
 
 # modify here
 CONTAINER_NAME="huyu-cuda11.8"
-HOSTNAME="a6000x8_cu11"
+HOSTNAME="3090x8_cu11"
 IMAGE_NAME="huyu/cuda:11.8-ubuntu22.04"
 
 SSD1_ROOT=/home/huyu/ssd1/container/
@@ -31,7 +31,9 @@ function deploy() {
     --restart=unless-stopped \
     --gpus=all \
     --privileged \
-    --shm-size=2g \
+    --shm-size=4g \
+    --ulimit memlock=-1 \
+    --ulimit stack=67108864 \
     --hostname="$HOSTNAME" \
     -p "0.0.0.0:$SSH_PORT:22/tcp" \
     -v "$HDD1_ROOT/home:$USER_HOME" \
