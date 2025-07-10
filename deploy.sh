@@ -4,7 +4,7 @@ USER_NAME="developer"
 
 # modify here
 CONTAINER_NAME="huyu-cuda11.8"
-HOSTNAME="3090x8_cu11"
+HOSTNAME="a6000x8_cu11"
 IMAGE_NAME="huyu/cuda:11.8-ubuntu22.04"
 
 SSD1_ROOT=/home/huyu/ssd1/container/
@@ -42,6 +42,8 @@ function deploy() {
     -v "$HDD2_ROOT/data:$USER_HOME/hdd2" \
     "$IMAGE_NAME"
     
+    # TODO add group video render
+    # according /dev/dri
     docker exec -it "$CONTAINER_NAME" bash -v /src/init_user.sh "$USER_ID" "$GROUP_ID"
 }
 
