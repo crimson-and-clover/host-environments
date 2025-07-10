@@ -3,7 +3,7 @@
 # run as root
 USER_NAME="developer"
 
-ANACONDA_URL="https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh"
+MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
 
 function change_dir_permission() {
     chmod 700 "/home/$USER_NAME/" || exit 1
@@ -61,13 +61,13 @@ function run_as_root() {
 function run_as_user() {
     cd $HOME
     
-    # install anaconda
-    if [[ ! -d "./anaconda3" ]]; then
-        echo "Installing Anaconda"
+    # install miniconda
+    if [[ ! -d "./miniconda3" ]]; then
+        echo "Installing Miniconda"
         mkdir -p ./downloads || exit 1
-        wget -O ./downloads/Anaconda3-Linux-x86_64.sh "$ANACONDA_URL" || exit 1
-        bash ./downloads/Anaconda3-Linux-x86_64.sh -b -p "./anaconda3" || exit 1
-        "./anaconda3/bin/conda" init || exit 1
+        wget -O ./downloads/Miniconda3-Linux-x86_64.sh "$MINICONDA_URL" || exit 1
+        bash ./downloads/Miniconda3-Linux-x86_64.sh -b -p "./miniconda3" || exit 1
+        "./miniconda3/bin/conda" init || exit 1
     fi
     
     # set authorized keys
