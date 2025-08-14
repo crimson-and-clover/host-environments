@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-export TZ=Asia/Shanghai
-export DEBIAN_FRONTEND=noninteractive
+export TZ="Asia/Shanghai"
+export DEBIAN_FRONTEND="noninteractive"
 
 APT_PKGS=(
     # tools

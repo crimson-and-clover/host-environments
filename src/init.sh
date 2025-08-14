@@ -6,6 +6,7 @@ export EGL_PLATFORM=surfaceless
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US:en"
 export LC_ALL="en_US.UTF-8"
+export TZ="Asia/Shanghai"
 
 # Function to add environment variable if not already present
 add_env_var() {
@@ -27,6 +28,7 @@ add_env_var "EGL_PLATFORM" "$EGL_PLATFORM"
 add_env_var "LANG" "$LANG"
 add_env_var "LANGUAGE" "$LANGUAGE"
 add_env_var "LC_ALL" "$LC_ALL"
+add_env_var "TZ" "$TZ"
 
 service ssh start
 
