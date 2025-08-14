@@ -67,7 +67,8 @@ function run_as_user() {
         mkdir -p ./downloads || exit 1
         wget -O ./downloads/Miniconda3-Linux-x86_64.sh "$MINICONDA_URL" || exit 1
         bash ./downloads/Miniconda3-Linux-x86_64.sh -b -p "./miniconda3" || exit 1
-        "./miniconda3/bin/conda" init || exit 1
+        # no longer needed
+        # "./miniconda3/bin/conda" init || exit 1
     fi
     
     # set authorized keys

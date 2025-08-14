@@ -9,6 +9,7 @@ APT_PKGS=(
     build-essential
     sudo
     git
+    git-lfs
     cmake
     ninja-build
     curl
@@ -22,6 +23,8 @@ APT_PKGS=(
     fuse-overlayfs
     sshfs
     tzdata
+    proxychains
+    locales
     # compile dependency
     libgl1-mesa-glx
     libegl1-mesa
@@ -53,6 +56,14 @@ APT_PKGS=(
     # virtual display
     xvfb
     mesa-utils
+    # pyenv
+    libc6-dev
+    libnss3-dev
+    libbz2-dev
+    libncurses5-dev
+    libncursesw5-dev
+    libffi-dev
+    libreadline-dev
 )
 
 USER_NAME="developer"
@@ -66,6 +77,7 @@ echo "root:000000" | chpasswd
 
 # upgrade and install package
 apt-get update && apt-get upgrade -y && apt-get install -y "${APT_PKGS[@]}" || exit 1
+rm -rf /var/lib/apt/lists/*
 
 # compile entrypoint
 gcc /src/pause.c -o /usr/bin/pause || exit 1
@@ -90,3 +102,7 @@ echo "source ~/.cuda_env" >> ~/.bashrc
 # set timezone
 ln -snf "/usr/share/zoneinfo/$TZ" "/etc/localtime"
 echo "$TZ" > "/etc/timezone"
+
+# set locale
+locale-gen en_US.UTF-8 || exit 1
+update-locale LANG=en_US.UTF-8 || exit 1
