@@ -72,7 +72,7 @@ function deploy() {
     
     # TODO add group video render
     # according /dev/dri
-    docker exec -it "$CONTAINER_NAME" bash -v /src/init_user.sh "$USER_NAME" "$USER_ID" "$GROUP_ID"
+    docker exec -it "$CONTAINER_NAME" bash -x /src/init_user.sh "$USER_NAME" "$USER_ID" "$GROUP_ID"
 }
 
 deploy

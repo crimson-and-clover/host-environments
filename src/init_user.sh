@@ -30,9 +30,9 @@ function create_user() {
 }
 
 function run_as_root() {
-    USER_NAME=$1
-    USER_ID=$2
-    GROUP_ID=$3
+    USER_NAME="$1"
+    USER_ID="$2"
+    GROUP_ID="$3"
     
     if [[ "$USER_ID" == "" ]]; then
         echo "Need at least 1 argument"
@@ -51,7 +51,7 @@ function run_as_root() {
     change_dir_permission
     
     # run as user
-    su "$USER_NAME" -c "bash -v $0" || exit 1
+    su "$USER_NAME" -c "bash -x $0 $USER_NAME $USER_ID $GROUP_ID" || exit 1
 }
 
 function run_as_user() {
@@ -73,6 +73,10 @@ function run_as_user() {
         echo "source ~/.cuda_env" >> ~/.bashrc
     fi
 }
+
+USER_NAME="$1"
+USER_ID="$2"
+GROUP_ID="$3"
 
 if [[ "$USER" == "$USER_NAME" ]]; then
     run_as_user "$@"
