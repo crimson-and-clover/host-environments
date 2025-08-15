@@ -67,14 +67,9 @@ APT_PKGS=(
     liblzma-dev
 )
 
-USER_NAME="developer"
-
 cd /root
 
 chmod -R 777 /src || exit 1
-
-# change root password
-echo "root:000000" | chpasswd
 
 # upgrade and install package
 apt-get update && apt-get upgrade -y && apt-get install -y "${APT_PKGS[@]}" || exit 1

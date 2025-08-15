@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# run as root
-USER_NAME="developer"
-
-MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-
 function change_dir_permission() {
     chmod 700 "/home/$USER_NAME/" || exit 1
     chmod 700 "/home/$USER_NAME/hdd"* || exit 1
@@ -35,8 +30,9 @@ function create_user() {
 }
 
 function run_as_root() {
-    USER_ID=$1
-    GROUP_ID=$2
+    USER_NAME=$1
+    USER_ID=$2
+    GROUP_ID=$3
     
     if [[ "$USER_ID" == "" ]]; then
         echo "Need at least 1 argument"
@@ -60,16 +56,6 @@ function run_as_root() {
 
 function run_as_user() {
     cd $HOME
-    
-    # install miniconda
-    if [[ ! -d "./miniconda3" ]]; then
-        echo "Installing Miniconda"
-        mkdir -p ./downloads || exit 1
-        wget -O ./downloads/Miniconda3-Linux-x86_64.sh "$MINICONDA_URL" || exit 1
-        bash ./downloads/Miniconda3-Linux-x86_64.sh -b -p "./miniconda3" || exit 1
-        # no longer needed
-        # "./miniconda3/bin/conda" init || exit 1
-    fi
     
     # set authorized keys
     if [[ ! -d "./.ssh" ]]; then
