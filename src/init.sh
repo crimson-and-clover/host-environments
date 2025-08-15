@@ -9,7 +9,7 @@ export LC_ALL="en_US.UTF-8"
 export TZ="Asia/Shanghai"
 
 # Function to add environment variable if not already present
-add_env_var() {
+function add_env_var() {
     local var_name="$1"
     local var_value="$2"
     local env_line="${var_name}=\"${var_value}\""

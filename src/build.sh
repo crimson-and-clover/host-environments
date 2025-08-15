@@ -64,6 +64,7 @@ APT_PKGS=(
     libncursesw5-dev
     libffi-dev
     libreadline-dev
+    liblzma-dev
 )
 
 USER_NAME="developer"
