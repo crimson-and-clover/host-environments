@@ -102,3 +102,6 @@ echo "$TZ" > "/etc/timezone"
 # set locale
 locale-gen en_US.UTF-8 || exit 1
 update-locale LANG=en_US.UTF-8 || exit 1
+
+# install rclone
+curl https://rclone.org/install.sh | bash
