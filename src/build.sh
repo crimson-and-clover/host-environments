@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 export TZ="Asia/Shanghai"
 export DEBIAN_FRONTEND="noninteractive"
@@ -28,7 +29,6 @@ APT_PKGS=(
     # compile dependency
     libgl1-mesa-glx
     libegl1-mesa
-    libxrandr2
     libxrandr2
     libxss1
     libxcursor1
@@ -69,7 +69,7 @@ APT_PKGS=(
 
 cd /root
 
-chmod -R 777 /src || exit 1
+chmod -R 755 /src || exit 1
 
 # upgrade and install package
 apt-get update && apt-get upgrade -y && apt-get install -y "${APT_PKGS[@]}" || exit 1
@@ -104,4 +104,4 @@ locale-gen en_US.UTF-8 || exit 1
 update-locale LANG=en_US.UTF-8 || exit 1
 
 # install rclone
-curl https://rclone.org/install.sh | bash
+curl -fsSL https://rclone.org/install.sh | bash || exit 1

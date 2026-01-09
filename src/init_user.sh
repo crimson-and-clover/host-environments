@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 function change_dir_permission() {
     chmod 700 "/home/$USER_NAME/" || exit 1
@@ -24,8 +25,12 @@ function create_user() {
         echo "Copy skel to user home"
         cp -a /etc/skel/. "/home/$USER_NAME" || exit 1
     fi
-    echo "root:000000" | chpasswd
-    echo "$USER_NAME:000000" | chpasswd
+    # Set password from environment variable or use default
+    # WARNING: Default password should be changed after first login
+    ROOT_PASSWORD="${ROOT_PASSWORD:-000000}"
+    USER_PASSWORD="${USER_PASSWORD:-000000}"
+    echo "root:${ROOT_PASSWORD}" | chpasswd
+    echo "${USER_NAME}:${USER_PASSWORD}" | chpasswd
     change_dir_permission
 }
 
@@ -51,11 +56,11 @@ function run_as_root() {
     change_dir_permission
     
     # run as user
-    su "$USER_NAME" -c "bash -x $0 $USER_NAME $USER_ID $GROUP_ID" || exit 1
+    su "$USER_NAME" -c "bash -x \"$0\" \"$USER_NAME\" \"$USER_ID\" \"$GROUP_ID\"" || exit 1
 }
 
 function run_as_user() {
-    cd $HOME
+    cd "$HOME"
     
     # set authorized keys
     if [[ ! -d "./.ssh" ]]; then
