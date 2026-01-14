@@ -7,6 +7,6 @@ EXPOSE 22/tcp
 
 COPY ./src/ /src
 
-RUN bash -v /src/build.sh
+RUN bash -v /src/build-dev.sh
 
 CMD [ "bash", "/src/init.sh" ]
