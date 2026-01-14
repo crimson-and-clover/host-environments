@@ -2,13 +2,23 @@
 set -euo pipefail
 
 function change_dir_permission() {
-    chmod 700 "/home/$USER_NAME/" || exit 1
-    chmod 700 "/home/$USER_NAME/hdd"* || exit 1
-    chmod 700 "/home/$USER_NAME/ssd"* || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/" || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/"* || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".[^.]* || exit 1
-    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".??* || exit 1
+    chmod 700 "/home/$USER_NAME/"
+    if compgen -G "/home/$USER_NAME/hdd"* > /dev/null; then
+        chmod 700 "/home/$USER_NAME/hdd"*
+    fi
+    if compgen -G "/home/$USER_NAME/ssd"* > /dev/null; then
+        chmod 700 "/home/$USER_NAME/ssd"*
+    fi
+    chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/"
+    if compgen -G "/home/$USER_NAME/"* > /dev/null; then
+        chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/"*
+    fi
+    if compgen -G "/home/$USER_NAME/".[^.]* > /dev/null; then
+        chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".[^.]*
+    fi
+    if compgen -G "/home/$USER_NAME/".??* > /dev/null; then
+        chown "$USER_ID:$GROUP_ID" "/home/$USER_NAME/".??*
+    fi
 }
 
 function create_user() {
