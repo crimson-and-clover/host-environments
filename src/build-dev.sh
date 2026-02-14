@@ -47,7 +47,6 @@ APT_PKGS=(
     libgoogle-glog-dev
     libgtest-dev
     libgmock-dev
-    libsqlite3-dev
     libglew-dev
     qtbase5-dev
     libqt5opengl5-dev
@@ -65,6 +64,9 @@ APT_PKGS=(
     libffi-dev
     libreadline-dev
     liblzma-dev
+    zlib1g-dev
+    libssl-dev
+    libsqlite3-dev
 )
 
 cd /root
