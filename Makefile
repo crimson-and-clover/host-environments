@@ -12,9 +12,9 @@ CUDA_VERSION_12_4 = 12.4-ubuntu22.04
 CUDA_DEV_IMAGE_12_4 = 12.4.1-cudnn-devel-ubuntu22.04
 CUDA_RUNTIME_IMAGE_12_4 = 12.4.1-cudnn-runtime-ubuntu22.04
 
-CUDA_VERSION_12_8 = 12.8-ubuntu22.04
-CUDA_DEV_IMAGE_12_8 = 12.8.1-cudnn-devel-ubuntu22.04
-CUDA_RUNTIME_IMAGE_12_8 = 12.8.1-cudnn-runtime-ubuntu22.04
+CUDA_VERSION_12_8 = 12.8-ubuntu24.04
+CUDA_DEV_IMAGE_12_8 = 12.8.1-cudnn-devel-ubuntu24.04
+CUDA_RUNTIME_IMAGE_12_8 = 12.8.1-cudnn-runtime-ubuntu24.04
 
 DEV_DOCKERFILE = docker/Dockerfile.dev
 

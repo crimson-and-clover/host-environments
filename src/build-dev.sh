@@ -18,7 +18,8 @@ APT_PKGS=(
     net-tools
     vim
     zip
-    ffmpeg
+    # ffmpeg download from github release, so no need to install it here
+    # ffmpeg
     iputils-ping
     iproute2
     fuse-overlayfs
