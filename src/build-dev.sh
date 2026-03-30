@@ -18,6 +18,7 @@ APT_PKGS=(
     net-tools
     vim
     zip
+    tmux
     # ffmpeg download from github release, so no need to install it here
     # ffmpeg
     iputils-ping
@@ -25,16 +26,16 @@ APT_PKGS=(
     fuse-overlayfs
     sshfs
     tzdata
-    proxychains
+    proxychains4
     locales
     # compile dependency
-    libgl1-mesa-glx
-    libegl1-mesa
+    libgl1
+    libegl1
     libxrandr2
     libxss1
     libxcursor1
     libxcomposite1
-    libasound2
+    libasound2t64
     libxi6
     libxtst6
     libboost-program-options-dev
@@ -49,7 +50,7 @@ APT_PKGS=(
     libgtest-dev
     libgmock-dev
     libglew-dev
-    qtbase5-dev
+    qt6-base-dev
     libqt5opengl5-dev
     libcgal-dev
     libceres-dev
@@ -60,8 +61,7 @@ APT_PKGS=(
     libc6-dev
     libnss3-dev
     libbz2-dev
-    libncurses5-dev
-    libncursesw5-dev
+    libncurses-dev
     libffi-dev
     libreadline-dev
     liblzma-dev
